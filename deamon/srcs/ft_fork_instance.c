@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_log.c                                           :+:      :+:    :+:   */
+/*   ft_fork_instance.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 08:47:38 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 10:55:50 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/20 09:44:11 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/20 09:49:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_log(uint32_t n, const char * const *strings)
+pid_t	ft_fork_instance(t_connection connection)
 {
-	uint32_t	i;
+	pid_t	pid;
 
-	i = 0;
-	while (i < n)
-		ft_putstr(strings[i++]);
-	ft_putendl("");
+	if (-1 == (pid = fork()))
+		return (ft_error(1, (char*[]){ERR_FORK_INSTANCE}, -1));
+	else if (pid)
+		return (pid);
+	else
+		ft_manage_connection(connection);
 }

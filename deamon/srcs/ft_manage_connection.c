@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_log.c                                           :+:      :+:    :+:   */
+/*   ft_manage_connection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 08:47:38 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 10:55:50 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/20 10:00:55 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/20 11:01:52 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_log(uint32_t n, const char * const *strings)
+__attribute__((noreturn)) void	ft_manage_connection(t_connection connection)
 {
-	uint32_t	i;
+	static char	buf[1024];
+	int64_t		len;
 
-	i = 0;
-	while (i < n)
-		ft_putstr(strings[i++]);
-	ft_putendl("");
+	while (0 < (len = read(connection.fd, buf, 1023)))
+	{
+		buf[len] = '\0';
+		printf("pid: %d, %s\n", getpid(), buf);
+	}
+	close(connection.fd);
+	ft_log(2, (const char*[]){"Connection ended: ", ft_itoa(getpid())});
+	exit(EXIT_FAILURE);
 }

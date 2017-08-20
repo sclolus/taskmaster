@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_log.c                                           :+:      :+:    :+:   */
+/*   ft_get_instances.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 08:47:38 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 10:55:50 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/20 10:47:15 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/20 10:49:16 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_log(uint32_t n, const char * const *strings)
+t_mem_block	*ft_get_instances(void)
 {
-	uint32_t	i;
+	static t_mem_block	*instances = NULL;
 
-	i = 0;
-	while (i < n)
-		ft_putstr(strings[i++]);
-	ft_putendl("");
+	if (!instances)
+		instances = ft_create_mem_block(DEFAULT_MEM_BLOCK_SIZE);
+	return (instances);
 }
