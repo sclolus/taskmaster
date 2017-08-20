@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_map_sockets.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 08:59:44 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/20 08:27:11 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/20 08:57:05 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+void	ft_map_sockets(t_mem_block *sockets, t_socket_action *f)
 {
-	t_mem_block			*sockets;
-	int					socketfd;
+	uint64_t	i;
 
-	sockets = ft_create_mem_block(DEFAULT_MEM_BLOCK_SIZE);
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
+	i = 0;
+	while (i * sizeof(t_socket) < sockets->offset)
 	{
-		ft_accept_connection(sockets, socketfd);
-		ft_map_sockets(sockets, &ft_pong);
+		ft_log(2, (char*[]){"Mapping on socket: ", ft_itoa(((t_socket*)sockets->block + i)->fd)});
+		f(((t_socket*)sockets->block + i));
+		i++;
+		if (i * sizeof(t_socket) >= sockets->offset && sockets->next)
+		{
+			sockets = sockets->next;
+			i = 0;
+		}
 	}
-	return (EXIT_SUCCESS);
 }

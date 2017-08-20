@@ -1,5 +1,12 @@
 NAME= deamon
-SRC= srcs/main.c
+SRC= srcs/main.c \
+	srcs/ft_pong.c \
+	srcs/ft_accept_connection.c \
+	srcs/ft_create_listening_socket.c \
+	srcs/ft_map_sockets.c \
+	srcs/ft_create_mem_block.c \
+	srcs/ft_mem_block_push_back_elem.c \
+	srcs/ft_log.c
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ../libft/includes/
 CC= gcc
