@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:14:12 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 02:14:53 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/20 05:44:14 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 # define TASKMASTER_H
 
 # include <sys/socket.h>
-
+# define ANYPORT 0
 #endif
