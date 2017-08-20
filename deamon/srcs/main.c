@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 04:27:45 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/20 05:25:14 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,23 @@ int	main(void)
 
 	ft_bzero(&serv_sock, sizeof(struct sockaddr));
 	serv_sock.sin_family = PF_INET;
-	serv_sock.sin_port = htons(7777);
-	ft_strcpy((char*)&serv_sock.sin_addr.s_addr, AALVES_IP);
-//	serv_sock.sin_addr.s_addr = INADDR_ANY;
-	serv_sock.sin_addr.s_addr = inet_addr("AALVES_IP");
+	serv_sock.sin_port = ANYPORT;
+	serv_sock.sin_addr.s_addr = /* inet_addr(AALVES_IP) */INADDR_ANY;
 	serv_sock.sin_len = sizeof(serv_sock.sin_family) + sizeof(AALVES_IP);
 	if (-1 == (socketfd = socket(PF_INET, SOCK_STREAM, 0)))
-		perror(DEAMON_NAME " socket()" );
+		perror(TM_ERR("socket()"));
 	if (-1 == (bind(socketfd, (const struct sockaddr*)&serv_sock
 					, sizeof(struct sockaddr))))
-		perror(DEAMON_NAME " bind()" );
+		perror(TM_ERR("bind()"));
 	if (-1 == (listen(socketfd, MAX_PENDING_CONNECTION)))
-		perror(DEAMON_NAME " listen()" );
+		perror(TM_ERR("listen()"));
 	if (-1 == accept(socketfd, (struct sockaddr*)&serv_sock, &(socklen_t){OFFSETOF(struct sockaddr_in, sin_addr) + sizeof(AALVES_IP)}))
-		perror(DEAMON_NAME " accept()" );
-	ft_putendl_fd("Lol, this is a test", socketfd);
-	ft_putendl_fd("test", 2);
+		perror(TM_ERR("accept()"));
+	static char buf[12];
+	while (42)
+	{
+		ft_putendl_fd("Lol, this is a test", socketfd);
+		ft_putnbr((int)read(socketfd, buf, 12));
+	}
 	return (EXIT_SUCCESS);
 }

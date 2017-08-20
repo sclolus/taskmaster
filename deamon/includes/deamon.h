@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 04:27:10 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/20 05:26:23 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 # include <stdio.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
+# include <unistd.h>
 
 # define DEAMON_NAME "deamon"
 # define MAX_PENDING_CONNECTION 128
+
 # define OFFSETOF(type, member) ((uint64_t)(&((type*)0)->member))
 
 /*
@@ -32,5 +34,5 @@
 /*
 ** Error Handling
 */
-
+# define TM_ERR(x) DEAMON_NAME ": " x
 #endif
