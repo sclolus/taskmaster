@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parse_one_prog.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 14:22:29 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 16:17:19 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 17:59:14 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+inline t_list	*ft_parse_one_prog(char *line, uint32_t index)
 {
-	t_mem_block			*instances;
-	int					socketfd;
+	t_list		*link;
 
-	ft_start_deamon();
-	instances = ft_get_instances();
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
-	{
-		ft_accept_connection(instances, socketfd);
-//		ft_map_sockets(sockets, &ft_pong);
-	}
-	return (EXIT_SUCCESS);
+	if (!(link = ft_memalloc(sizeof(t_list)))
+		|| !(link->content = ft_memalloc(sizeof(t_supervised_program))))
+		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
+	while (ft_parse_one_line(line, index
+			, (t_supervised_program*)link->content))
+		index = ft_skip_one_line(line, index);
+	return (link);
 }

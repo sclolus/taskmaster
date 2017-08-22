@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parse_conf_file.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 14:22:29 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 16:12:05 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 18:15:03 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+t_list	*ft_parse_conf_file(char *buffer)
 {
-	t_mem_block			*instances;
-	int					socketfd;
+	t_list		*supervised_progs;
+	uint32_t	i;
 
-	ft_start_deamon();
-	instances = ft_get_instances();
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
+	supervised_progs = NULL;
+	i = 0;
+	while (buffer[i])
 	{
-		ft_accept_connection(instances, socketfd);
-//		ft_map_sockets(sockets, &ft_pong);
+		ft_lstadd(&supervised_progs, ft_parse_one_prog(buffer, i));
+		i = ft_skip_one_prog(buffer, i);
 	}
-	return (EXIT_SUCCESS);
+	return (supervised_progs);
 }

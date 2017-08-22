@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_start_deamon.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 14:22:29 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 14:22:39 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 14:37:06 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+void	ft_start_deamon(void)
 {
-	t_mem_block			*instances;
-	int					socketfd;
+	pid_t	pid;
 
-	ft_start_deamon();
-	instances = ft_get_instances();
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
+	if (-1 == (pid = fork()))
+		ft_error_exit(1, (char*[]){"Failed to fork the deamon"}, EXIT_FAILURE);
+	else if (pid)
+		exit(EXIT_SUCCESS);
+	else
 	{
-		ft_accept_connection(instances, socketfd);
-//		ft_map_sockets(sockets, &ft_pong);
+		setsid();
+		return ;
 	}
-	return (EXIT_SUCCESS);
 }

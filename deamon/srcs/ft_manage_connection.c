@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 10:00:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 11:01:52 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 14:59:46 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ __attribute__((noreturn)) void	ft_manage_connection(t_connection connection)
 	{
 		buf[len] = '\0';
 		printf("pid: %d, %s\n", getpid(), buf);
+		ft_task_execution(buf, &connection);
 	}
 	close(connection.fd);
 	ft_log(2, (const char*[]){"Connection ended: ", ft_itoa(getpid())});

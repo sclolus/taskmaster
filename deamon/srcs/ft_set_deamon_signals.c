@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 10:23:36 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 10:53:54 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 15:08:01 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,23 @@ static void	ft_handler_sigchild(int signum)
 	{
 		pid = wait(&status);
 		if (WIFEXITED(status) || WIFSIGNALED(status))
+		{
+			ft_log(4, (const char*[]){"Marked instance: ", ft_itoa(getpid())
+					, " as status: ", ft_get_status_str(TERMINATED)});
 			ft_mark_instance(pid, TERMINATED);
+		}
 		else if (WIFSTOPPED(status))
+		{
+			ft_log(4, (const char*[]){"Marked instance: ", ft_itoa(getpid())
+					, " as status: ", ft_get_status_str(SUSPENDED)});
 			ft_mark_instance(pid, SUSPENDED);
+		}
 		else
+		{
+			ft_log(4, (const char*[]){"Marked instance: ", ft_itoa(getpid())
+					, " as status: ", ft_get_status_str(WORKING)});
 			ft_mark_instance(pid, WORKING);
+		}
 	}
 }
 

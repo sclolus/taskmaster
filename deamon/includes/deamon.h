@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/20 11:00:36 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 18:19:35 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define DEAMON_NAME "deamon"
 # undef ERROR_NAME_HEADER
@@ -43,6 +44,12 @@ typedef struct	s_mem_block
 	void				*block;
 	struct s_mem_block	*next;
 }				t_mem_block;
+
+/*
+** Deamon initialization
+*/
+
+void			ft_start_deamon(void);
 
 /*
 ** Socket handling
@@ -81,6 +88,76 @@ void			ft_mark_instance(pid_t pid, t_instance_status status);
 const char		*ft_get_status_str(t_instance_status status);
 t_mem_block		*ft_get_instances(void);
 //void			ft_map_sockets(t_mem_block *sockets, t_socket_action *f);
+
+/*
+** Configuration File Parsing
+*/
+
+typedef int32_t (t_parsing_case)(char *, uint32_t, t_supervised_program *);
+typedef int32_t (t_parsing_action)(char *, uint32_t, t_supervised_program *);
+typedef struct	s_conf_parsing_state
+{
+	char				*id;
+	t_parsing_case		*f_case;
+	t_parsing_action	*f_action;
+}				t_conf_parsing_state;
+
+t_list		*ft_parse_conf_file(char *buffer);
+int32_t		ft_is_prog_name_case(char *line, uint32_t index
+							, t_supervised_program *prog);
+uint32_t	ft_skip_cmd_header(char *line, uint32_t index);
+uint32_t	ft_skip_one_line(char *line, uint32_t index);
+uint32_t	ft_skip_one_prog(char *buffer, uint32_t i);
+char		*ft_get_parsing_path(char *line, uint32_t index);
+t_list		*ft_parse_one_prog(char *line, uint32_t index);
+int32_t		ft_parse_one_line(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_stderr_redirec(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_stdout_redirec(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_stop_time(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_stop_signal(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_start_time(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_start_retries(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_autorestart(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_autostart(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_working_dir(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_cmd(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_prog_name(char *line, uint32_t index
+						, t_supervised_program *prog);
+int32_t		ft_get_nbr_procs(char *line, uint32_t index
+						, t_supervised_program *prog);
+
+
+/*
+** Instructions
+*/
+
+# define INSTANCE_UI_EXIT_MESSAGE "Connection successfully ended"
+# define DEAMON_UI_KILL_MESSAGE "Deamon succesfully terminated"
+
+typedef void (t_f_instruction)(t_connection *);
+
+typedef struct	s_instruction
+{
+	char			*id;
+	t_f_instruction	*f;
+}				t_instruction;
+
+void	ft_task_execution(char *instruction, t_connection *connection);
+void	ft_start_process(t_connection *connection);
+void	ft_stop_process(t_connection *connection);
+void	ft_kill_deamon(t_connection *connection) __attribute__((noreturn));
+void	ft_instance_exit(t_connection *connection) __attribute__((noreturn));
 
 /*
 ** Pong

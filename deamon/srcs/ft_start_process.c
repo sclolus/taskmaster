@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_start_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 14:22:29 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 14:44:48 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 14:50:12 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+void	ft_start_process(t_connection *connection)
 {
-	t_mem_block			*instances;
-	int					socketfd;
-
-	ft_start_deamon();
-	instances = ft_get_instances();
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
-	{
-		ft_accept_connection(instances, socketfd);
-//		ft_map_sockets(sockets, &ft_pong);
-	}
-	return (EXIT_SUCCESS);
+	(void)connection;
 }

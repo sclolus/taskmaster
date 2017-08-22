@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_is_prog_name_case.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 14:22:29 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 18:17:23 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 18:20:26 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+int32_t	ft_is_prog_name_case(char *line, uint32_t index
+							, t_supervised_program *prog)
 {
-	t_mem_block			*instances;
-	int					socketfd;
-
-	ft_start_deamon();
-	instances = ft_get_instances();
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
+	if (prog->name)
+		return (0);
+	if (ft_strnequ(line, "\t", 1))
 	{
-		ft_accept_connection(instances, socketfd);
-//		ft_map_sockets(sockets, &ft_pong);
+		index = ft_skip_cmd_header(line, index);
+		if (line[index] == '\n')
+			return (1);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

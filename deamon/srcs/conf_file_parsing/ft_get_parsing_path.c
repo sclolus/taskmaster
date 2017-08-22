@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_get_parsing_path.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 14:22:29 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 16:55:30 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 18:12:29 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-//# define AALVES_IP "10.13.13.2"
-# include <stdio.h>
-
-int	main(void)
+inline char	*ft_get_parsing_path(char *line, uint32_t index)
 {
-	t_mem_block			*instances;
-	int					socketfd;
+	char		*path;
+	uint32_t	i;
+	uint32_t	len;
 
-	ft_start_deamon();
-	instances = ft_get_instances();
-	socketfd = ft_create_listening_socket(PF_INET, 7777);
-	while (42)
+	i = index;
+	len = 0;
+	while (line[i] && line[i] != '\n')
 	{
-		ft_accept_connection(instances, socketfd);
-//		ft_map_sockets(sockets, &ft_pong);
+		i++;
+		len++;
 	}
-	return (EXIT_SUCCESS);
+	if (!(path = ft_strndup(line + i - len, len)))
+		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
+	return (path);
 }

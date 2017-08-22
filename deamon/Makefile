@@ -1,5 +1,6 @@
 NAME= deamon
 SRC= srcs/main.c \
+	srcs/ft_start_deamon.c \
 	srcs/ft_accept_connection.c \
 	srcs/ft_create_listening_socket.c \
 	srcs/ft_create_mem_block.c \
@@ -11,7 +12,33 @@ SRC= srcs/main.c \
 	srcs/ft_set_deamon_signals.c \
 	srcs/ft_mark_instance.c \
 	srcs/ft_get_instances.c \
-	srcs/ft_get_status_str.c
+	srcs/ft_get_status_str.c \
+	srcs/ft_task_execution.c \
+	srcs/ft_start_process.c \
+	srcs/ft_stop_process.c \
+	srcs/ft_kill_deamon.c \
+	srcs/ft_instance_exit.c \
+	srcs/conf_file_parsing/ft_get_autorestart.c \
+	srcs/conf_file_parsing/ft_get_autostart.c \
+	srcs/conf_file_parsing/ft_is_prog_name_case.c \
+	srcs/conf_file_parsing/ft_get_cmd.c \
+	srcs/conf_file_parsing/ft_get_nbr_procs.c \
+	srcs/conf_file_parsing/ft_get_parsing_path.c \
+	srcs/conf_file_parsing/ft_get_prog_name.c \
+	srcs/conf_file_parsing/ft_get_start_retries.c \
+	srcs/conf_file_parsing/ft_get_start_time.c \
+	srcs/conf_file_parsing/ft_get_stderr_redirec.c \
+	srcs/conf_file_parsing/ft_get_stdout_redirec.c \
+	srcs/conf_file_parsing/ft_get_stop_signal.c \
+	srcs/conf_file_parsing/ft_get_stop_time.c \
+	srcs/conf_file_parsing/ft_get_working_dir.c \
+	srcs/conf_file_parsing/ft_parse_conf_file.c \
+	srcs/conf_file_parsing/ft_parse_one_line.c \
+	srcs/conf_file_parsing/ft_parse_one_prog.c \
+	srcs/conf_file_parsing/ft_skip_cmd_header.c \
+	srcs/conf_file_parsing/ft_skip_one_line.c \
+	srcs/conf_file_parsing/ft_skip_one_prog.c
+
 #	srcs/ft_map_sockets.c \
 	srcs/ft_pong.c \p
 
