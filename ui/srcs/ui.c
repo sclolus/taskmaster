@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:11:40 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 15:00:35 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 21:22:57 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 //#include "termcaps.h"
 
 //# define loli  "62.210.34.198"
-# define loli  "10.11.13.14"
+# define loli  "10.13.1.11"
 # include <stdio.h>
 # include <unistd.h>
 

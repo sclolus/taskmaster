@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 19:21:26 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 21:37:29 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef enum	e_instance_status
 	TERMINATED,
 	SUSPENDED,
 }				t_instance_status;
+
+typedef t_instance_status t_process_status;
 
 typedef struct	s_connection
 {
