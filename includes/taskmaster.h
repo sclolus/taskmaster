@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:14:12 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 18:13:54 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 19:33:53 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/socket.h>
 # include <stdint.h>
+# include "libft.h"
 # define ANYPORT 0
 
 typedef struct	s_exit_status
@@ -78,5 +79,7 @@ typedef struct	s_supervised_program
 	t_exit_status		expected_exit_status;
 //	t_env				*process_env;
 }				t_supervised_program;
+
+void	ft_dump_t_supervised_program(t_list *programs);
 
 #endif

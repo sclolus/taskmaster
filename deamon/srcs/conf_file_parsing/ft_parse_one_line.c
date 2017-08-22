@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 16:23:58 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 18:17:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 19:54:40 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ inline int32_t	ft_parse_one_line(char *line, uint32_t index
 	{
 		if (parsing_machine[i].id)
 		{
-			if (ft_strnequ(line, parsing_machine[i].id, ft_strlen(parsing_machine[i].id)))
+			if (ft_strnequ(line + index, parsing_machine[i].id, ft_strlen(parsing_machine[i].id)))
 				return (parsing_machine[i].f_action(line, index, prog));
 		}
 		else if (parsing_machine[i].f_case(line, index, prog))

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 18:19:35 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 19:21:26 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ t_mem_block		*ft_get_instances(void);
 /*
 ** Configuration File Parsing
 */
+
+# define PARSE_CONF_FILE_ERR "Could not parse configuration file"
 
 typedef int32_t (t_parsing_case)(char *, uint32_t, t_supervised_program *);
 typedef int32_t (t_parsing_action)(char *, uint32_t, t_supervised_program *);

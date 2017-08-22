@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 16:12:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 18:15:03 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/22 19:39:08 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ t_list	*ft_parse_conf_file(char *buffer)
 	uint32_t	i;
 
 	supervised_progs = NULL;
+	if (!buffer)
+	{
+		ft_error(1, (char*[]){PARSE_CONF_FILE_ERR}, 0);
+		return (NULL);
+	}
 	i = 0;
 	while (buffer[i])
 	{

@@ -18,6 +18,7 @@ SRC= srcs/main.c \
 	srcs/ft_stop_process.c \
 	srcs/ft_kill_deamon.c \
 	srcs/ft_instance_exit.c \
+	srcs/conf_file_parsing/ft_dump_t_supervised_program.c \
 	srcs/conf_file_parsing/ft_get_autorestart.c \
 	srcs/conf_file_parsing/ft_get_autostart.c \
 	srcs/conf_file_parsing/ft_is_prog_name_case.c \
