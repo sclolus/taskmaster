@@ -8,8 +8,13 @@ SRC= srcs/main.c \
 	srcs/ft_log.c \
 	srcs/ft_fork_instance.c \
 	srcs/ft_manage_connection.c \
+	srcs/ft_create_control_fork.c \
+	srcs/ft_control_process.c \
+	srcs/ft_get_process_status.c \
 	srcs/ft_sock_send.c \
 	srcs/ft_set_deamon_signals.c \
+	srcs/ft_set_control_process_signals.c \
+	srcs/ft_signal.c \
 	srcs/ft_mark_instance.c \
 	srcs/ft_get_instances.c \
 	srcs/ft_get_status_str.c \

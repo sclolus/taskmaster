@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:44:48 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 21:30:44 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/23 21:42:56 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_start_process(t_connection *connection)
 {
-
+	(void)connection;
 }

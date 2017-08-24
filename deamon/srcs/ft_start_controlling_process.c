@@ -1,18 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stop_process.c                                  :+:      :+:    :+:   */
+/*   ft_start_controlling_process.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/22 14:45:35 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/24 00:35:47 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/22 21:42:25 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/22 22:18:06 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_stop_process(t_connection *connection)
-{
-	(void)connection;
-}
+pid_t	ft_start_controlling_process(t_supervised_program *prog,

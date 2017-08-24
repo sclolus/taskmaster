@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 21:37:29 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/24 01:55:55 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,33 @@ void	ft_stop_process(t_connection *connection);
 void	ft_kill_deamon(t_connection *connection) __attribute__((noreturn));
 void	ft_instance_exit(t_connection *connection) __attribute__((noreturn));
 
+
+/*
+** Controlling processes
+*/
+
+# define TASK_RESTART 0
+# define TASK_STOP 1
+# define TASK_KILL 2
+
+typedef struct	s_control_info
+{
+	t_supervised_program	*prog;
+	int						fd[2];
+	pid_t					pid;
+	char					pad[4];
+}				t_control_info;
+
+extern int8_t	read_on_socket;
+
+t_control_info		ft_create_control_fork(t_connection *connection
+								, t_supervised_program *prog);
+void				ft_control_process(t_connection *connection
+	, t_supervised_program *prog, int fds[2]) __attribute__((noreturn));
+void				ft_set_process_status(t_process_status init_status);
+t_process_status	*ft_get_process_status(void);
+void				ft_set_control_fork_signals(void);
+
 /*
 ** Pong
 */
@@ -198,11 +225,14 @@ t_mem_block		*ft_create_mem_block(uint64_t capacity);
 # define ERR_SET_SIG_DEAMON "signal() failed to set deamon signal handlers"
 
 int			ft_set_deamon_signals(void);
+void		ft_reset_signals(void);
+void		ft_ignore_signals(void);
 /*
 ** Error Handling
 */
 
 # define ERR_FORK_INSTANCE "ft_fork_instance() failed"
+# define ERR_CONTROL_FORK "Failed to fork() control process"
 # define MALLOC_FAILURE "Malloc() failed due to insufficient ressources"
 # define TM_ERR(x) DEAMON_NAME ": " x
 
