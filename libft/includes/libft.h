@@ -20,6 +20,7 @@
 # define PHASN(x, n) (Phaszero(x ^ ((~0UL / 255L) * n)))
 # define STATIC_BUF_SIZE 3
 # define STATIC_PUT_FLUSH 1
+# undef tab
 
 # define ERROR_NAME_HEADER "libft_default_error: "
 
@@ -34,7 +35,8 @@ typedef struct	s_list
 typedef struct	s_string
 {
 	uint64_t	capacity;
-	uint64_t	len;
+	int64_t	len;
+	int64_t		offset;
 	char		*string;
 }				t_string;
 

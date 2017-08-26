@@ -69,7 +69,7 @@ typedef t_instance_status t_process_status;
 typedef struct	s_connection
 {
 	int					fd;
-	struct sockaddr_in	client_addr;
+	struct sockaddr_in	addr;
 }				t_connection;
 
 typedef struct	s_instance

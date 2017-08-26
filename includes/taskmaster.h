@@ -18,6 +18,12 @@
 # include "libft.h"
 # define ANYPORT 0
 
+typedef struct	s_connection
+{
+	int			fd;
+	struct sockaddr_in	addr;
+}				t_connection;
+
 typedef struct	s_exit_status
 {
 	uint8_t		*exit_status;
