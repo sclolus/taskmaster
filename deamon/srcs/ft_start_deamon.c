@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:22:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 04:23:16 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 19:22:09 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_start_deamon(void)
 	{
 		setsid();
 		/*
+		  chdir("/");
 		  if (-1 ==  close(STDIN_FILENO) || -1 == close(STDERR_FILENO)
 		  || -1 == close(STOUT_FILENO))
 		  {
@@ -31,8 +32,13 @@ void	ft_start_deamon(void)
 		  ft_log(1, (char*[]){"Fail to close standard i/o"});
 		  exit(EXIT_FAILURE);
 		  }
-
+		  umask(0);
 		 */
-		return ;
+		if (-1 == (pid = fork()))
+			ft_error_exit(1, (char*[]){"Failed to fork the deamon"}, EXIT_FAILURE);
+		else if (pid)
+			exit(EXIT_SUCCESS);
+		else
+			return ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 02:43:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 02:48:39 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 19:36:44 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ inline void	ft_reload_routine(t_supervised_program *prog, int fds[2])
 
 	message = RELOAD_FORK_SUCCESS;
 	ft_stop_process(prog);
-	ft_log(2, (char*[]){"Cleaned current process:", prog->name}); // pid ?
+	ft_log(2, (const char*[]){"Cleaned current process:", prog->name}); // pid ?
 	write(fds[1], &message, 1);
 	exit(EXIT_SUCCESS);
 }

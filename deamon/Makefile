@@ -51,11 +51,8 @@ SRC= srcs/main.c \
 	srcs/conf_file_parsing/ft_skip_one_line.c \
 	srcs/conf_file_parsing/ft_skip_one_prog.c
 
-#	srcs/ft_map_sockets.c \
-	srcs/ft_pong.c \p
-
 OBJ= $(SRC:.c=.o)
-HDR_PATH= ../libft/includes/
+HDR_PATH= ../includes
 CC= gcc
 CC_FLAGS= -v -Weverything -Wall -Werror -Wextra -g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
 LFT_PATH= ../libft/

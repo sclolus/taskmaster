@@ -6,20 +6,20 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:45:35 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 02:36:09 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 19:36:28 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
+#include <time.h>
 
 inline void	ft_stop_process(t_supervised_program *prog)
 {
-	time_t	time;
-	time_t	elapsed_time;
+	unsigned int	start_time;
 
-	time = time(NULL);
+	start_time = (unsigned int)prog->start_info.stop_time;
 	kill(prog->pid, prog->start_info.stop_signal);
-	while ((time = sleep(time)))
+	while ((start_time = sleep(start_time)))
 		;
 	ft_update_process_status(prog->pid);
 	while (*ft_get_process_status() != TERMINATED

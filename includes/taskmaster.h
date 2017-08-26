@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:14:12 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 02:20:02 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 19:29:12 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 # define TASKMASTER_H
 
 # include <sys/socket.h>
+# include "ft_socket.h"
 # include <stdint.h>
 # include "libft.h"
 # define ANYPORT 0
-
-typedef struct	s_connection
-{
-	int			fd;
-	struct sockaddr_in	addr;
-}				t_connection;
 
 typedef struct	s_exit_status
 {
@@ -79,12 +74,13 @@ typedef struct	s_io_redirection
 typedef struct	s_supervised_program
 {
 	char				*name;
-	t_start_info		start_info;
-	t_process_flags		process_flags;
 	t_io_redirection	io_redirections;
+	t_start_info		start_info;
 	t_exit_status		expected_exit_status;
-	t_env				*env;
+	t_process_flags		process_flags;
+	char				pad[2];
 	pid_t				pid;
+	/* t_env */char				**env;
 }				t_supervised_program;
 
 void	ft_dump_t_supervised_program(t_list *programs);

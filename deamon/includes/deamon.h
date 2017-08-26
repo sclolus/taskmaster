@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 02:48:30 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 19:37:11 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,6 @@ typedef enum	e_instance_status
 }				t_instance_status;
 
 typedef t_instance_status t_process_status;
-
-typedef struct	s_connection
-{
-	int					fd;
-	struct sockaddr_in	addr;
-}				t_connection;
 
 typedef struct	s_instance
 {
@@ -160,7 +154,7 @@ typedef struct	s_instruction
 
 void	ft_task_execution(char *instruction, t_connection *connection);
 void	ft_start_process(t_connection *connection);
-void	ft_stop_process(t_connection *connection);
+//void	ft_stop_process(t_connection *connection);
 void	ft_kill_deamon(t_connection *connection) __attribute__((noreturn));
 void	ft_instance_exit(t_connection *connection) __attribute__((noreturn));
 
@@ -200,7 +194,7 @@ void				ft_send_status(t_supervised_program *prog, int fds[2]);
 
 # define RELOAD_FORK_SUCCESS 1
 
-void				ft_reload_routine(t_supervised_program *prog, int fds[2]);
+void				ft_reload_routine(t_supervised_program *prog, int fds[2]) __attribute__((noreturn));
 
 /*
 ** Pong
