@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start_deamon.c                                  :+:      :+:    :+:   */
+/*   ft_launch_process.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/22 14:22:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 04:23:16 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/25 23:27:12 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/26 01:58:08 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_start_deamon(void)
+inline pid_t	ft_launch_process(t_supervised_program *prog)
 {
 	pid_t	pid;
 
-	if (-1 == (pid = fork()))
-		ft_error_exit(1, (char*[]){"Failed to fork the deamon"}, EXIT_FAILURE);
+	if (-1 == (pid = fork))
+		ft_error_exit(1, (char*[]){"Failed to launch process"}, EXIT_FAILURE);
 	else if (pid)
-		exit(EXIT_SUCCESS);
+		return (pid);
 	else
 	{
-		setsid();
-		/*
-		  if (-1 ==  close(STDIN_FILENO) || -1 == close(STDERR_FILENO)
-		  || -1 == close(STOUT_FILENO))
-		  {
-		  perror(DEAMON_NAME);
-		  ft_log(1, (char*[]){"Fail to close standard i/o"});
-		  exit(EXIT_FAILURE);
-		  }
-
-		 */
-		return ;
+//		ft_set_fds()
+		if (-1 == execve(prog->cmd[0], prog->cmd, prog->env))
+			perror(DEAMON_NAME);
+		exit(EXIT_FAILURE);
 	}
 }

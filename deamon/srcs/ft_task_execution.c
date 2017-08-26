@@ -6,13 +6,13 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:32:58 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 15:02:43 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 02:50:17 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_task_execution(char *instruction, t_connection *connection)
+inline void	ft_task_execution(char *instruction, t_connection *connection)
 {
 	static t_instruction instructions[] =
 	{

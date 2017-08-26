@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/24 01:55:55 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 02:48:30 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef enum	e_instance_status
 {
 	ERR = 0,
 	WORKING,
+	EXITED,
 	TERMINATED,
 	SUSPENDED,
 }				t_instance_status;
@@ -170,7 +171,8 @@ void	ft_instance_exit(t_connection *connection) __attribute__((noreturn));
 
 # define TASK_RESTART 0
 # define TASK_STOP 1
-# define TASK_KILL 2
+# define TASK_STATUS 2
+# define TASK_RELOAD 3
 
 typedef struct	s_control_info
 {
@@ -188,7 +190,17 @@ void				ft_control_process(t_connection *connection
 	, t_supervised_program *prog, int fds[2]) __attribute__((noreturn));
 void				ft_set_process_status(t_process_status init_status);
 t_process_status	*ft_get_process_status(void);
+void				ft_update_process_status(pid_t pid);
 void				ft_set_control_fork_signals(void);
+
+pid_t				ft_launch_process(t_supervised_program *prog);
+void				ft_restart_process(t_supervised_program *prog);
+void				ft_stop_process(t_supervised_program *prog);
+void				ft_send_status(t_supervised_program *prog, int fds[2]);
+
+# define RELOAD_FORK_SUCCESS 1
+
+void				ft_reload_routine(t_supervised_program *prog, int fds[2]);
 
 /*
 ** Pong
@@ -227,10 +239,12 @@ t_mem_block		*ft_create_mem_block(uint64_t capacity);
 int			ft_set_deamon_signals(void);
 void		ft_reset_signals(void);
 void		ft_ignore_signals(void);
+
 /*
 ** Error Handling
 */
 
+# define ERR_LAUNCH_PROCESS "Failed to launch process"
 # define ERR_FORK_INSTANCE "ft_fork_instance() failed"
 # define ERR_CONTROL_FORK "Failed to fork() control process"
 # define MALLOC_FAILURE "Malloc() failed due to insufficient ressources"

@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start_deamon.c                                  :+:      :+:    :+:   */
+/*   ft_send_status.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/22 14:22:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 04:23:16 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/26 02:36:25 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/26 02:40:13 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-void	ft_start_deamon(void)
+inline void	ft_send_status(t_supervised_program *prog, int fds[2])
 {
-	pid_t	pid;
-
-	if (-1 == (pid = fork()))
-		ft_error_exit(1, (char*[]){"Failed to fork the deamon"}, EXIT_FAILURE);
-	else if (pid)
-		exit(EXIT_SUCCESS);
+	t_process_status	status;
+	ft_update_process_status(prog->pid);
+	status = *ft_get_process_status();
+	if (ft_is_little_endian())
+		write(fds[1], &status, 1);
 	else
-	{
-		setsid();
-		/*
-		  if (-1 ==  close(STDIN_FILENO) || -1 == close(STDERR_FILENO)
-		  || -1 == close(STOUT_FILENO))
-		  {
-		  perror(DEAMON_NAME);
-		  ft_log(1, (char*[]){"Fail to close standard i/o"});
-		  exit(EXIT_FAILURE);
-		  }
-
-		 */
-		return ;
-	}
+		write(fds[1], (char*)&status + (sizeof(t_process_status) - 1), 1);
 }

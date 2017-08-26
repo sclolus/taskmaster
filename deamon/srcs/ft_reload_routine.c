@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_cmd.c                                       :+:      :+:    :+:   */
+/*   ft_reload_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/22 16:46:13 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 01:59:01 by sclolus          ###   ########.fr       */
+/*   Created: 2017/08/26 02:43:26 by sclolus           #+#    #+#             */
+/*   Updated: 2017/08/26 02:48:39 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-inline int32_t	ft_get_cmd(char *line, uint32_t index
-						, t_supervised_program *prog)
+inline void	ft_reload_routine(t_supervised_program *prog, int fds[2])
 {
-	uint32_t	i;
+	char	message;
 
-	index = ft_skip_cmd_header(line, index);
-	i = index + 1;
-	while (line[i] && line[i] != '\"')
-		i++;
-	line[i] = '\0';
-	if (!(prog->start_info.cmd = ft_strsplit(line + i, ' ')))
-	{
-		// ft_close_connection();
-		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
-	}
-	line[i] = '0';
-	return (1);
+	message = RELOAD_FORK_SUCCESS;
+	ft_stop_process(prog);
+	ft_log(2, (char*[]){"Cleaned current process:", prog->name}); // pid ?
+	write(fds[1], &message, 1);
+	exit(EXIT_SUCCESS);
 }

@@ -10,10 +10,16 @@ SRC= srcs/main.c \
 	srcs/ft_manage_connection.c \
 	srcs/ft_create_control_fork.c \
 	srcs/ft_control_process.c \
+	srcs/ft_launch_process.c \
 	srcs/ft_get_process_status.c \
 	srcs/ft_sock_send.c \
 	srcs/ft_set_deamon_signals.c \
 	srcs/ft_set_control_process_signals.c \
+	srcs/ft_update_process_status.c \
+	srcs/ft_restart_process.c \
+	srcs/ft_stop_process.c \
+	srcs/ft_send_status.c \
+	srcs/ft_reload_routine.c \
 	srcs/ft_signal.c \
 	srcs/ft_mark_instance.c \
 	srcs/ft_get_instances.c \

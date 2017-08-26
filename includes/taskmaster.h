@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:14:12 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/24 00:34:10 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/26 02:20:02 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ typedef struct	s_exit_status
 
 typedef struct	s_flag16
 {
-	uint16_t	autostart;
-	uint16_t	autorestart;
-	uint16_t	bit2;
-	uint16_t	bit3;
-	uint16_t	bit4;
-	uint16_t	bit5;
-	uint16_t	bit6;
-	uint16_t	bit7;
-	uint16_t	bit8;
-	uint16_t	bit9;
-	uint16_t	bit10;
-	uint16_t	bit11;
-	uint16_t	bit12;
-	uint16_t	bit13;
-	uint16_t	bit14;
-	uint16_t	bit15;
+	uint16_t	autostart : 1;
+	uint16_t	autorestart : 1;
+	uint16_t	bit2 : 1;
+	uint16_t	bit3 : 1;
+	uint16_t	bit4 : 1;
+	uint16_t	bit5 : 1;
+	uint16_t	bit6 : 1;
+	uint16_t	bit7 : 1;
+	uint16_t	bit8 : 1;
+	uint16_t	bit9 : 1;
+	uint16_t	bit10 : 1;
+	uint16_t	bit11 : 1;
+	uint16_t	bit12 : 1;
+	uint16_t	bit13 : 1;
+	uint16_t	bit14 : 1;
+	uint16_t	bit15 : 1;
 }				t_flag16;
 
 typedef union	s_process_flags
@@ -52,7 +52,7 @@ typedef union	s_process_flags
 
 typedef struct	s_start_info
 {
-	char			*cmd;
+	char			**cmd;
 	char			*working_dir;
 	uint32_t		process_nbr;
 	uint32_t		start_retries;
@@ -77,7 +77,8 @@ typedef struct	s_supervised_program
 	t_process_flags		process_flags;
 	t_io_redirection	io_redirections;
 	t_exit_status		expected_exit_status;
-//	t_env				*process_env;
+	t_env				*env;
+	pid_t				pid;
 }				t_supervised_program;
 
 void	ft_dump_t_supervised_program(t_list *programs);
