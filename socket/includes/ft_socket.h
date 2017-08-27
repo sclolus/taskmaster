@@ -16,6 +16,13 @@
 # include <unistd.h>
 # include <arpa/inet.h>
 # include <netinet/in.h>
+# include <stdio.h>
+# include "libft.h"
+
+
+# define SERVER_IP "10.13.7.13"
+
+
 
 typedef struct	s_connection
 {
@@ -26,5 +33,6 @@ typedef struct	s_connection
 
 int	ft_create_socket(const int domain, const int type, const int protocol);
 int32_t	ft_wait_connection(const t_connection connection, const uint32_t max);
+ssize_t	ft_write_socket(const char *str, const int fd);
 
 #endif
