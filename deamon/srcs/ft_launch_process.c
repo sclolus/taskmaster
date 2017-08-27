@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/25 23:27:12 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 19:29:59 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 02:50:44 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ inline pid_t	ft_launch_process(t_supervised_program *prog)
 	else
 	{
 //		ft_set_fds()
+//		umask(prog->start_info.umask);
 		if (-1 == execve(prog->start_info.cmd[0], prog->start_info.cmd, prog->env))
 			perror(DEAMON_NAME);
 		exit(EXIT_FAILURE);

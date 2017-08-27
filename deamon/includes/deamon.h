@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/26 19:37:11 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 01:19:02 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int32_t		ft_get_nbr_procs(char *line, uint32_t index
 # define INSTANCE_UI_EXIT_MESSAGE "Connection successfully ended"
 # define DEAMON_UI_KILL_MESSAGE "Deamon succesfully terminated"
 
-typedef void (t_f_instruction)(t_connection *);
+typedef void (t_f_instruction)(char *, t_list *, t_list **);
 
 typedef struct	s_instruction
 {
@@ -152,11 +152,20 @@ typedef struct	s_instruction
 	t_f_instruction	*f;
 }				t_instruction;
 
-void	ft_task_execution(char *instruction, t_connection *connection);
-void	ft_start_process(t_connection *connection);
-//void	ft_stop_process(t_connection *connection);
-void	ft_kill_deamon(t_connection *connection) __attribute__((noreturn));
-void	ft_instance_exit(t_connection *connection) __attribute__((noreturn));
+void			ft_task_execution(char *instruction, t_list *progs);
+int32_t			ft_parse_task(char *task, t_list *progs
+					, t_supervised_program **prog, uint32_t *proc_num);
+void			ft_task_start_process(char *instruction, t_list *progs
+					, t_list **control_infos);
+void			ft_task_stop_process(char *instruction, t_list *progs
+					, t_list **control_infos);
+void			ft_task_stop_all(char *instruction, t_list *progs
+					, t_list **control_infos);
+void			ft_task_instance_exit(char *instruction, t_list *progs
+					, t_list **control_infos) __attribute__((noreturn));
+
+//void	ft_kill_deamon() __attribute__((noreturn));
+//void	ft_instance_exit() __attribute__((noreturn));
 
 
 /*
@@ -168,18 +177,20 @@ void	ft_instance_exit(t_connection *connection) __attribute__((noreturn));
 # define TASK_STATUS 2
 # define TASK_RELOAD 3
 
+extern t_connection	*g_connection;
+
 typedef struct	s_control_info
 {
 	t_supervised_program	*prog;
+	uint32_t				proc_nbr;
 	int						fd[2];
 	pid_t					pid;
-	char					pad[4];
 }				t_control_info;
 
 extern int8_t	read_on_socket;
 
 t_control_info		ft_create_control_fork(t_connection *connection
-								, t_supervised_program *prog);
+									, t_supervised_program *prog, uint32_t proc_nbr);
 void				ft_control_process(t_connection *connection
 	, t_supervised_program *prog, int fds[2]) __attribute__((noreturn));
 void				ft_set_process_status(t_process_status init_status);
@@ -189,7 +200,7 @@ void				ft_set_control_fork_signals(void);
 
 pid_t				ft_launch_process(t_supervised_program *prog);
 void				ft_restart_process(t_supervised_program *prog);
-void				ft_stop_process(t_supervised_program *prog);
+void				ft_stop_process(t_supervised_program *prog) __attribute__((noreturn));
 void				ft_send_status(t_supervised_program *prog, int fds[2]);
 
 # define RELOAD_FORK_SUCCESS 1

@@ -25,10 +25,11 @@ SRC= srcs/main.c \
 	srcs/ft_get_instances.c \
 	srcs/ft_get_status_str.c \
 	srcs/ft_task_execution.c \
-	srcs/ft_start_process.c \
-	srcs/ft_stop_process.c \
-	srcs/ft_kill_deamon.c \
-	srcs/ft_instance_exit.c \
+	srcs/ft_parse_task.c \
+	srcs/ft_task_start_process.c \
+	srcs/ft_task_stop_process.c \
+	srcs/ft_task_stop_all.c \
+	srcs/ft_task_instance_exit.c \
 	srcs/conf_file_parsing/ft_dump_t_supervised_program.c \
 	srcs/conf_file_parsing/ft_get_autorestart.c \
 	srcs/conf_file_parsing/ft_get_autostart.c \
