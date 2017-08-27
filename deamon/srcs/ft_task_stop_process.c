@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 00:43:11 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 01:24:51 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 04:01:08 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static inline void	ft_remove_control_info_entry(t_list **control_infos
 			else
 				*control_infos = tmp->next;
 			free(tmp);
+			return ;
 		}
 		last = tmp;
 		tmp = tmp->next;
@@ -63,7 +64,8 @@ void	ft_task_stop_process(char *instruction, t_list *progs
 	uint32_t				proc_nbr;
 	t_list					*tmp;
 
-	ft_parse_task(instruction, progs, &prog, &proc_nbr);
+	if (!(ft_parse_task(instruction, progs, &prog, &proc_nbr)))
+		return ;
 	if (!(tmp = ft_find_control_info(control_infos, prog, proc_nbr)))
 	{
 		ft_sock_send("Error: Non-existing process", g_connection->fd);

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 16:41:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 18:02:22 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 03:48:13 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ inline int32_t	ft_get_prog_name(char *line, uint32_t index
 	uint32_t	len;
 
 	i = index;
-	while (line[i] && line[i] != '\t')
+	while (line[i] && line[i] == '\t')
 		i++;
 	len = 0;
 	while (line[i] && line[i] != ':')

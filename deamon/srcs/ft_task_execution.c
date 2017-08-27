@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:32:58 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 01:16:37 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 04:42:28 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ inline void	ft_task_execution(char *instruction, t_list *progs)
 		{"exit", &ft_task_instance_exit},
 		{"start", &ft_task_start_process},
 		{"stop", &ft_task_stop_process},
+		{"restart", &ft_task_restart_process},
 		{"stop_all", &ft_task_stop_all},
 		//restart
 	};

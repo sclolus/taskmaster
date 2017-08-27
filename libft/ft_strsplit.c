@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 17:15:44 by sclolus           #+#    #+#             */
-/*   Updated: 2016/11/07 12:58:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 03:31:00 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char			**ft_strsplit(char const *s, char c)
 	str_nbr = ft_count_words((char*)s, &c);
 	cs[0] = 0;
 	cs[2] = 0;
-	if (!(strs = (char**)malloc(sizeof(char*) * str_nbr + 1)) || !s)
+	if (!(strs = (char**)malloc(sizeof(char*) * (str_nbr + 1))) || !s)
 		return (0);
 	strs[str_nbr] = 0;
 	while (cs[0] < str_nbr)

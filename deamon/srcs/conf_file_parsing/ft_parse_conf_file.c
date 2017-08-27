@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 16:12:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/22 19:39:08 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 03:26:49 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_list	*ft_parse_conf_file(char *buffer)
 	if (!buffer)
 	{
 		ft_error(1, (char*[]){PARSE_CONF_FILE_ERR}, 0);
+		free(buffer);
 		return (NULL);
 	}
 	i = 0;
@@ -29,5 +30,6 @@ t_list	*ft_parse_conf_file(char *buffer)
 		ft_lstadd(&supervised_progs, ft_parse_one_prog(buffer, i));
 		i = ft_skip_one_prog(buffer, i);
 	}
+	free(buffer);
 	return (supervised_progs);
 }

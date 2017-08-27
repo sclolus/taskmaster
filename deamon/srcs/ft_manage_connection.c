@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 10:00:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 01:17:04 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 03:33:26 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ __attribute__((noreturn)) void	ft_manage_connection(t_connection connection)
 	int64_t		len;
 	t_list		*progs;
 
+	(void)connection;
 	if (!(progs = ft_parse_conf_file(ft_get_file_content("configure.txt"))))
 		exit(EXIT_FAILURE); //
 	ft_dump_t_supervised_program(progs);

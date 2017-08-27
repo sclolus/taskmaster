@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 01:19:02 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 04:45:31 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ void			ft_task_start_process(char *instruction, t_list *progs
 void			ft_task_stop_process(char *instruction, t_list *progs
 					, t_list **control_infos);
 void			ft_task_stop_all(char *instruction, t_list *progs
+					, t_list **control_infos);
+void			ft_task_restart_process(char *instruction, t_list *progs
 					, t_list **control_infos);
 void			ft_task_instance_exit(char *instruction, t_list *progs
 					, t_list **control_infos) __attribute__((noreturn));
