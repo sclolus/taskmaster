@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 04:45:31 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/27 22:16:11 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void				ft_update_process_status(pid_t pid);
 void				ft_set_control_fork_signals(void);
 
 pid_t				ft_launch_process(t_supervised_program *prog);
-void				ft_restart_process(t_supervised_program *prog);
+void				ft_restart_process(t_supervised_program *prog) __attribute__((noreturn));
 void				ft_stop_process(t_supervised_program *prog) __attribute__((noreturn));
 void				ft_send_status(t_supervised_program *prog, int fds[2]);
 
