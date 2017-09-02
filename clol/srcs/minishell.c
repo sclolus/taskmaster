@@ -64,14 +64,13 @@ static void	ft_main_loop(char **line, t_shenv *shenv, t_connection *connection)
 		ft_set_and_put_prompt(NORMAL_PROMPT);
 		ft_termget_complete_line(line, shenv);
 		ft_write_socket(*line, connection->fd);
-		sleep(1);
-		if (-1 == (lol = read(connection->fd, toto, 200)))
-		    perror("read");
-		else
+		if (ft_socket_to_read())
 		{
-		    toto[lol] = 0;
-		    printf("server >> %.200s\n", toto);
+		    if (-1 == (lol = read(connection->fd, toto, 200)))
+			perror("read");
 		}
+		toto[lol] = 0;
+		printf("server >> %.200s\n", toto);
 		ft_clean_loop(line);
 	}
 }
@@ -100,6 +99,7 @@ int			main(int argc,  char **argv, char **env)
 	    return(-1);
 	}
 	printf("connected\n");
+	ft_watch_socket(connection.fd, READ_SET);
 	ft_main_loop(&line, shenv, &connection);
 	ft_main_cleanup(shenv);
 	return (0);

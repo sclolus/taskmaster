@@ -142,7 +142,8 @@ SRC= srcs/minishell.c \
 	completion/ft_sanitize_completion.c \
 	../socket/srcs/ft_create_socket.c \
 	../socket/srcs/ft_wait_connection.c \
-	../socket/srcs/ft_write_socket.c
+	../socket/srcs/ft_write_socket.c \
+	../socket/srcs/ft_select_socket.c
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ./includes
 
