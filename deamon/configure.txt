@@ -1,0 +1,24 @@
+	ls_lol:
+		cmd: "/usr/local/bin/ls"
+		numprocs: 1
+		workingdir: /tmp
+		autostart: true
+		autorestart: false
+		startretries: 3
+		starttime: 5
+		stopsignal: SIGTERM
+		stoptime: 10
+		stdout: /tmp/nginx.stdout
+		stderr: /tmp/nginx.stderr
+	yes:
+		cmd: "/usr/bin/yes"
+		numprocs: 8
+		workingdir: /tmp
+		autostart: true
+		autorestart: false
+		startretries: 3
+		starttime: 5
+		stopsignal: SIGUSR1
+		stoptime: 10
+		stdout: /tmp/vgsworker.stdout
+		stderr: /tmp/vgsworker.stderr
