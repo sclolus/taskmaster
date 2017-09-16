@@ -40,3 +40,11 @@ void		ft_handler_cont(int signum)
 	else
 		ft_putstr_fd("signal handling error", 2);
 }
+
+void		ft_handler_sigusr1(int signum)
+{
+	if (signum == SIGUSR1)
+	    g_read_on_socket = 1;
+	else
+		ft_putstr_fd("signal handling error", 2);
+}

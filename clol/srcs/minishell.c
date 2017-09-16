@@ -57,20 +57,11 @@ static void	ft_clean_loop(char **line)
 
 static void	ft_main_loop(char **line, t_shenv *shenv, t_connection *connection)
 {
-    char toto[201];
-    ssize_t lol;
 	while (42)
 	{
 		ft_set_and_put_prompt(NORMAL_PROMPT);
 		ft_termget_complete_line(line, shenv);
 		ft_write_socket(*line, connection->fd);
-		if (ft_socket_to_read())
-		{
-		    if (-1 == (lol = read(connection->fd, toto, 200)))
-			perror("read");
-		}
-		toto[lol] = 0;
-		printf("server >> %.200s\n", toto);
 		ft_clean_loop(line);
 	}
 }

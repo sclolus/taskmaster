@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:35:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/04/12 20:33:32 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/16 02:50:58 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@
 
 # define PHASZERO(x) ((((x + (0x7f7f7f7f7f7f7f7f)) ^ ~x) & 0x818080808080808080)
 # define PHASN(x, n) (Phaszero(x ^ ((~0UL / 255L) * n)))
-# define STATIC_BUF_SIZE 4096
+# define STATIC_BUF_SIZE 3
 # define STATIC_PUT_FLUSH 1
-# undef tab
+
+# define NORETURN __attribute__((noreturn)) void
+
+# define ERROR_NAME_HEADER "libft_default_error: "
 
 typedef struct	s_list
 {
@@ -33,10 +36,28 @@ typedef struct	s_list
 typedef struct	s_string
 {
 	uint64_t	capacity;
-	int64_t		len;
-	int64_t		offset;
+	uint64_t	len;
 	char		*string;
 }				t_string;
+
+typedef struct	s_mem_block
+{
+	uint64_t			capacity;
+	uint64_t			offset;
+	void				*block;
+	struct s_mem_block	*next;
+}				t_mem_block;
+
+/*
+** Mem_block handling
+*/
+
+# define MEM_BLOCK_LIMIT 256
+# define DEFAULT_MEM_BLOCK_SIZE (10000)
+
+void			*ft_mem_block_push_back_elem(t_mem_block *mem_block
+									, void *elem, uint32_t size);
+t_mem_block		*ft_create_mem_block(uint64_t capacity);
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -47,7 +68,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t			ft_strlen(const char *s);
 char			*ft_strdup(const char *s1);
-char			*ft_strndup(char *str, uint32_t len);
+char			*ft_strndup(char *str, size_t len);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 char			*ft_strcat(char *s1, const char *s2);
@@ -80,6 +101,8 @@ void			ft_strclr(char *s);
 void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 char			*ft_itoa(int n);
+char			*ft_ulltoa(uint64_t nbr);
+char			*ft_static_ulltoa(uint64_t nbr);
 char			*ft_strmap(char const *s, char (*f)(char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strequ(char const *s1, char const *s2);
@@ -129,6 +152,25 @@ void			ft_get_cancer(char *str);
 void			ft_t_string_expand(t_string *string);
 t_string		*ft_t_string_concat(t_string *string, char *str);
 t_string		*ft_t_string_new(uint32_t capacity);
+void			ft_t_string_free(t_string *string);
 t_string		*ft_t_string_concat_len(t_string *string
 									, char *str, uint32_t str_len);
+
+/*
+** File handling
+*/
+
+char			*ft_get_file_content(char *filename);
+
+/*
+** Error Handling
+*/
+
+# define ERR_GET_FILE_CONTENT_MALLOC "malloc() failed in get_file_content()"
+# define ERR_FILE_OPEN "Failed to open file: "
+# define MALLOC_FAILURE "malloc() failed due to insufficient ressources"
+
+int32_t			ft_error(uint32_t n, char **str, int32_t return_status);
+NORETURN		ft_error_exit(uint32_t n, char **str, int32_t exit_status);
+
 #endif

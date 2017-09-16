@@ -37,6 +37,7 @@ typedef struct	s_string
 {
 	uint64_t	capacity;
 	uint64_t	len;
+    int64_t		offset;
 	char		*string;
 }				t_string;
 
@@ -128,6 +129,7 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+
 void			*ft_lsttotab(t_list *lst, unsigned int len);
 
 unsigned long	ft_pow(int nbr, unsigned int exponent);

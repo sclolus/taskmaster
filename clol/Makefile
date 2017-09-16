@@ -66,6 +66,9 @@ SRC= srcs/minishell.c \
 	srcs/ft_get_shenv.c \
 	srcs/ft_checksum.c \
 	srcs/ft_free_strsplit.c \
+	srcs/ft_create_watcher.c \
+	srcs/ft_watcher.c \
+	srcs/ft_update_read_on_socket.c \
 	termcaps/termcaps.c \
 	termcaps/ft_termgets_utils.c \
 	termcaps/ft_current_prompt.c \
@@ -146,22 +149,23 @@ SRC= srcs/minishell.c \
 	../socket/srcs/ft_select_socket.c
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ./includes
+LIBFT_PATH= ../includes
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C libft/
-	$(CC) $^ -L./libft -lft -ltermcap $(FLAGS) -o $(NAME)
+	make -C ../libft
+	$(CC) $^ -L../libft -I$(LIBFT_PATH) -lft -ltermcap $(FLAGS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $< -I$(HDR_PATH) -I../socket/includes $(FLAGS) -o $@ -c
+	$(CC) $< -I$(HDR_PATH) -I$(LIBFT_PATH)  -I../socket/includes $(FLAGS) -o $@ -c
 
 clean:
-	make -C libft/ clean
+	make -C ../libft clean
 	rm -f $(OBJ)
 
 fclean: clean
-	make -C libft/ fclean
+	make -C ../libft fclean
 	rm -f $(NAME)
 
 re: fclean all

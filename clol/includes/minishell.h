@@ -26,6 +26,7 @@
 # include "ft_completion.h"
 # include "ft_new_completion.h"
 # include "ast.h"
+# include "ft_socket.h"
 
 # define SHELL_NAME "42sh: "
 # define GRAMMAR_CHECKSUM 2027082
@@ -64,6 +65,7 @@
 # define ERR_ILL_CMD "Command not found: "
 # define ERR_MALLOC "Internal memory management failed at: "
 # define ERR_NOFILE "No such file or directory: "
+# define ERR_FORK_WATCHER "Fork failed: "
 
 typedef uint8_t	t_bool;
 typedef struct		s_heredoc
@@ -120,6 +122,7 @@ typedef struct		s_shell
 }					t_shell;
 
 t_shell				*g_shell;
+int32_t				g_read_on_socket;
 
 int32_t				ft_setup_sighandlers(void);
 void				ft_init_shell(void);
@@ -301,6 +304,7 @@ void				ft_ignore_signals(void);
 void				ft_handler_int(int signum);
 void				ft_handler_tstp(int signum);
 void				ft_handler_cont(int signum);
+void				ft_handler_sigusr1(int signum);
 
 /*
 ** Miscellaneous Free functions
@@ -308,6 +312,8 @@ void				ft_handler_cont(int signum);
 
 void				ft_free_argv(char **argv);
 void				ft_free_strsplit(char **split);
+void				ft_update_read_on_socket(t_string *buf);
+NORETURN			ft_watcher(t_connection connection);
 
 /*
 ** Processes

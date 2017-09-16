@@ -96,6 +96,8 @@ int64_t		ft_termget(char **line, t_shenv *shenv)
 	{
 		if ((read(0, tmp, 8)) == -1)
 			exit(EXIT_FAILURE);
+		if (g_read_on_socket)
+		    ft_update_read_on_socket(buf);
 		if (*(long*)tmp == 3)
 			break ;
 		if (!ft_exec_term_event(tmp, &buf, shenv))

@@ -23,6 +23,8 @@ int32_t		ft_setup_sighandlers(void)
 		return (ft_error(1, (char*[]){"Signal handling error"}, -1));
 	if (signal(SIGCONT, &ft_handler_cont) == SIG_ERR)
 		return (ft_error(1, (char*[]){"Signal handling error"}, -1));
+	if (signal(SIGUSR1, &ft_handler_sigusr1) == SIG_ERR)
+	    return (ft_error(1, (char*[]){"Signal handling error"}, -1));
 	return (1);
 }
 
