@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 14:32:58 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 04:42:28 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/16 01:04:44 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ inline void	ft_task_execution(char *instruction, t_list *progs)
 		{"stop", &ft_task_stop_process},
 		{"restart", &ft_task_restart_process},
 		{"stop_all", &ft_task_stop_all},
-		//restart
+		{"status", &ft_task_status},
 	};
 	static t_list	*control_infos = NULL;
 	uint32_t	i;

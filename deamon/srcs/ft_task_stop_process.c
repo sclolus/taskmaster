@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/27 00:43:11 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 04:01:08 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/16 04:21:46 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,40 +39,29 @@ static inline void	ft_remove_control_info_entry(t_list **control_infos
 	}
 }
 
-static inline t_list	*ft_find_control_info(t_list **control_infos
-						, t_supervised_program *prog, uint32_t proc_nbr)
-{
-	t_list	*tmp;
-
-	if (!*control_infos)
-		return (NULL);
-	tmp = *control_infos;
-	while (tmp)
-	{
-		if (((t_control_info*)tmp->content)->prog == prog
-			&& ((t_control_info*)tmp->content)->proc_nbr == proc_nbr)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
 void	ft_task_stop_process(char *instruction, t_list *progs
 							, t_list **control_infos)
 {
 	t_supervised_program	*prog;
 	uint32_t				proc_nbr;
 	t_list					*tmp;
+	int						ret;
 
-	if (!(ft_parse_task(instruction, progs, &prog, &proc_nbr)))
+	if (1 < (ft_parse_task(instruction, progs, &prog, &proc_nbr)))
 		return ;
 	if (!(tmp = ft_find_control_info(control_infos, prog, proc_nbr)))
 	{
 		ft_sock_send("Error: Non-existing process", g_connection->fd);
 		return ;
 	}
-	write(((t_control_info*)tmp->content)->fd[1], &(uint8_t){TASK_STOP}, 1);
-	kill(((t_control_info*)tmp->content)->pid, SIGUSR1);
-	// wait ?
+	ft_task_request(((t_control_info*)tmp->content), TASK_STOP);
+	waitpid(((t_control_info*)tmp->content)->pid, &ret, WUNTRACED);
+	if (WIFEXITED(ret))
+	{
+		ft_sock_log(4, (const char*[]){STOPPED_PROCESS, prog->name
+					, PROCESS_NBR(ft_static_ulltoa(proc_nbr))}, 0, *g_connection);
+		ft_log(4, (const char*[]){STOPPED_PROCESS, prog->name
+					, PROCESS_NBR(ft_static_ulltoa(proc_nbr))});
+	}
 	ft_remove_control_info_entry(control_infos, tmp);
 }

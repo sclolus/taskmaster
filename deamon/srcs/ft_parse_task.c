@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 23:30:51 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 03:59:50 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/16 03:41:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int32_t								ft_parse_task(char *task, t_list *progs
 	if (!(*prog = ft_is_valid_prog_name(argv[1], progs)))
 	{
 		ft_sock_send("Invalid program name\n", g_connection->fd);
-		return (0);
+		return (-1);
 	}
 	if (i == 3)
 	{
@@ -94,7 +94,8 @@ int32_t								ft_parse_task(char *task, t_list *progs
 			|| ~0U == (*proc_num = ft_is_valid_proc_num(argv[2], *prog)))
 		{
 			ft_sock_send("Invalid process number provided\n", g_connection->fd);
-			return (0);
+			*proc_num = ~0U;
+			return (-1);
 		}
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 05:02:58 by sclolus           #+#    #+#             */
-/*   Updated: 2017/07/11 09:16:54 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/08/30 01:40:57 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void		ft_get_file_content_string(t_string *string, int fd)
 	{
 		ft_t_string_concat(string, line);
 		ft_t_string_concat(string, "\n");
+		free(line);
 	}
 }
 

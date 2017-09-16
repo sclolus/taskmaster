@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_send_status.c                                   :+:      :+:    :+:   */
+/*   ft_find_control_info.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/26 02:36:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/16 03:16:53 by sclolus          ###   ########.fr       */
+/*   Created: 2017/09/16 02:43:34 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/16 02:43:45 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "deamon.h"
 
-inline void	ft_send_status(t_supervised_program *prog, int fds[2])
+inline t_list	*ft_find_control_info(t_list **control_infos
+						, t_supervised_program *prog, uint32_t proc_nbr)
 {
-	t_process_status	status;
+	t_list	*tmp;
 
-	ft_update_process_status(prog->pid);
-	status = *ft_get_process_status();
-	if (ft_is_little_endian())
-		write(fds[1], &status, 1);
-	else
-		write(fds[1], (char*)&status + (sizeof(t_process_status) - 1), 1);
+	if (!*control_infos)
+		return (NULL);
+	tmp = *control_infos;
+	while (tmp)
+	{
+		if (((t_control_info*)tmp->content)->prog == prog
+			&& ((t_control_info*)tmp->content)->proc_nbr == proc_nbr)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }

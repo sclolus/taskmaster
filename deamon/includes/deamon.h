@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 02:15:26 by sclolus           #+#    #+#             */
-/*   Updated: 2017/08/27 22:16:11 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/16 04:14:28 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@
 
 # define CHECK(x) do {ft_putendl_fd("_____", 2);ft_putendl_fd(#x, 2);ft_putendl_fd("_____", 2);} while (0);
 
-typedef struct	s_mem_block
-{
-	uint64_t			capacity;
-	uint64_t			offset;
-	void				*block;
-	struct s_mem_block	*next;
-}				t_mem_block;
-
 /*
 ** Deamon initialization
 */
@@ -72,6 +64,15 @@ typedef struct	s_instance
 	pid_t				pid;
 	t_instance_status	status;
 }				t_instance;
+
+typedef struct	s_control_info
+{
+	t_supervised_program	*prog;
+	uint32_t				proc_nbr;
+	int						fd[2];
+	pid_t					pid;
+}				t_control_info;
+
 
 //typedef void	(t_socket_action)(t_socket *socket);
 
@@ -153,6 +154,7 @@ typedef struct	s_instruction
 }				t_instruction;
 
 void			ft_task_execution(char *instruction, t_list *progs);
+void			ft_task_request(t_control_info *control_info, uint8_t task);
 int32_t			ft_parse_task(char *task, t_list *progs
 					, t_supervised_program **prog, uint32_t *proc_num);
 void			ft_task_start_process(char *instruction, t_list *progs
@@ -165,6 +167,11 @@ void			ft_task_restart_process(char *instruction, t_list *progs
 					, t_list **control_infos);
 void			ft_task_instance_exit(char *instruction, t_list *progs
 					, t_list **control_infos) __attribute__((noreturn));
+void			ft_task_status(char *instruction, t_list *progs
+							, t_list **control_infos);
+
+t_list			*ft_find_control_info(t_list **control_infos
+							, t_supervised_program *prog, uint32_t proc_nbr);
 
 //void	ft_kill_deamon() __attribute__((noreturn));
 //void	ft_instance_exit() __attribute__((noreturn));
@@ -180,16 +187,9 @@ void			ft_task_instance_exit(char *instruction, t_list *progs
 # define TASK_RELOAD 3
 
 extern t_connection	*g_connection;
-
-typedef struct	s_control_info
-{
-	t_supervised_program	*prog;
-	uint32_t				proc_nbr;
-	int						fd[2];
-	pid_t					pid;
-}				t_control_info;
-
 extern int8_t	read_on_socket;
+
+# define STOPPED_PROCESS "Stopped process: "
 
 t_control_info		ft_create_control_fork(t_connection *connection
 									, t_supervised_program *prog, uint32_t proc_nbr);
@@ -223,19 +223,12 @@ void				ft_reload_routine(t_supervised_program *prog, int fds[2]) __attribute__(
 ** Log
 */
 
+# define PROGRAM(x) "program: ", x
+# define STATUS_LOG(x) " status: ", x
+# define PROCESS_NBR(x) " Process number: ", x
+
 void	ft_log(uint32_t n, const char * const *strings);
 ssize_t	ft_sock_send(char *str, int fd);
-
-/*
-** Mem_block handling
-*/
-
-# define MEM_BLOCK_LIMIT 256
-# define DEFAULT_MEM_BLOCK_SIZE (sizeof(t_instance) * 150)
-
-void			*ft_mem_block_push_back_elem(t_mem_block *mem_block
-									, void *elem, uint32_t size);
-t_mem_block		*ft_create_mem_block(uint64_t capacity);
 
 /*
 ** Signals
@@ -254,7 +247,6 @@ void		ft_ignore_signals(void);
 # define ERR_LAUNCH_PROCESS "Failed to launch process"
 # define ERR_FORK_INSTANCE "ft_fork_instance() failed"
 # define ERR_CONTROL_FORK "Failed to fork() control process"
-# define MALLOC_FAILURE "Malloc() failed due to insufficient ressources"
 # define TM_ERR(x) DEAMON_NAME ": " x
 
 

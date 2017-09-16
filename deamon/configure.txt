@@ -22,3 +22,15 @@
 		stoptime: 10
 		stdout: /tmp/vgsworker.stdout
 		stderr: /tmp/vgsworker.stderr
+	sleep:
+		cmd: "/bin/sleep 30"
+		numprocs: 8
+		workingdir: /tmp
+		autostart: true
+		autorestart: false
+		startretries: 3
+		starttime: 5
+		stopsignal: SIGUSR1
+		stoptime: 10
+		stdout: /tmp/vgsworker.stdout
+		stderr: /tmp/vgsworker.stderr

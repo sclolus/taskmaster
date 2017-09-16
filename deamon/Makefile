@@ -3,8 +3,6 @@ SRC= srcs/main.c \
 	srcs/ft_start_deamon.c \
 	srcs/ft_accept_connection.c \
 	srcs/ft_create_listening_socket.c \
-	srcs/ft_create_mem_block.c \
-	srcs/ft_mem_block_push_back_elem.c \
 	srcs/ft_log.c \
 	srcs/ft_fork_instance.c \
 	srcs/ft_manage_connection.c \
@@ -25,12 +23,15 @@ SRC= srcs/main.c \
 	srcs/ft_get_instances.c \
 	srcs/ft_get_status_str.c \
 	srcs/ft_task_execution.c \
+	srcs/ft_task_request.c \
 	srcs/ft_parse_task.c \
 	srcs/ft_task_start_process.c \
 	srcs/ft_task_stop_process.c \
 	srcs/ft_task_stop_all.c \
 	srcs/ft_task_instance_exit.c \
 	srcs/ft_task_restart_process.c \
+	srcs/ft_task_status.c \
+	srcs/ft_find_control_info.c \
 	srcs/conf_file_parsing/ft_dump_t_supervised_program.c \
 	srcs/conf_file_parsing/ft_get_autorestart.c \
 	srcs/conf_file_parsing/ft_get_autostart.c \
@@ -51,30 +52,34 @@ SRC= srcs/main.c \
 	srcs/conf_file_parsing/ft_parse_one_prog.c \
 	srcs/conf_file_parsing/ft_skip_cmd_header.c \
 	srcs/conf_file_parsing/ft_skip_one_line.c \
-	srcs/conf_file_parsing/ft_skip_one_prog.c
+	srcs/conf_file_parsing/ft_skip_one_prog.c \
 
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ../includes
 CC= gcc
 CC_FLAGS= -v -Weverything -Wall -Werror -Wextra -g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
 LFT_PATH= ../libft/
+SOCKET_PATH=../socket/
 #VPATH=./srcs:./obj:./includes/
 
 all: submodule $(NAME)
 
 submodule:
 	@make -C $(LFT_PATH)
+	@make -C $(SOCKET_PATH)
 
 $(NAME): $(OBJ)
-	$(CC) $(CC_FLAGS) $^ -L$(LFT_PATH) -lft -o $(NAME)
+	$(CC) $(CC_FLAGS) $^ -L$(LFT_PATH) -lft -o $(NAME) -L$(SOCKET_PATH) -lsocket
 %.o : %.c
 	$(CC) $(CC_FLAGS) $< -c -I$(HDR_PATH) -I./includes -I../includes -o $@
 
 clean:
 	rm -f $(OBJ)
 	make -C $(LFT_PATH) clean
+	make -C $(SOCKET_PATH) clean
 fclean: clean
 	rm -f $(NAME)
 	make -C $(LFT_PATH) fclean
+	make -C $(SOCKET_PATH) fclean
 
 re: fclean all
